@@ -6,6 +6,8 @@ import ru.stqa.geometry.figures.Triangle;
 
 public class Geometry {
     public static void main(String[] args) {
+        //Задаем параметры треугольника
+        Triangle myTriangle = new Triangle(5.0, 7.0, 5.0);
         /*
         Square.printSquareArea(new Square(7.0));
         Square.printSquareArea(new Square(5.0));
@@ -16,12 +18,10 @@ public class Geometry {
         */
 
 //Вывод результата по Периметру треугольника
-        Triangle.printTrianglePerimeter(10.0, 5.0, 2.0);
-        Triangle.printTrianglePerimeter(5.0, 5.0, 5.0);
+        myTriangle.printTrianglePerimeter();
 
 //Вывод результата по Площади треугольника
-        Triangle.printTriangleArea(10.0, 5.0, 10.0);
-        Triangle.printTriangleArea(5.0, 5.0, 5.0);
+        myTriangle.printTriangleArea();
     }
 
 }

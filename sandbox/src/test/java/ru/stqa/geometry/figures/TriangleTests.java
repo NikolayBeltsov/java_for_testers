@@ -7,12 +7,12 @@ public class TriangleTests {
 // Тест на проверку периметра треугольника
     @Test
     void canCalculatePerimeter() {
-        Assertions.assertEquals(17., Triangle.trianglePerimeter(5.0, 7.0, 5.0));
+        Assertions.assertEquals(17., new Triangle(5.0, 7.0, 5.0).perimeter());
     }
 
 // Тест на проверку площади треугольника
     @Test
     void canCalculateArea() {
-        Assertions.assertEquals(10.825317547305483, Triangle.triangleArea(5.0, 5.0, 5.0));
+        Assertions.assertEquals(12.497499749949988, new Triangle(5.0, 7.0, 5.0).area());
     }
 }
