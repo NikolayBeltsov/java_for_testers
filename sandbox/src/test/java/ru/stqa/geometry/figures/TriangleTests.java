@@ -15,4 +15,28 @@ public class TriangleTests {
     void canCalculateArea() {
         Assertions.assertEquals(12.497499749949988, new Triangle(5.0, 7.0, 5.0).area());
     }
+
+//Тест на проверку наличия отрицательных сторон
+    @Test
+    void cannotCreateTriangleWithNegativeSide() {
+        try {
+            new Triangle(-5.0, 7.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // OK
+        }
+    }
+
+//Тест на проверку нарушения неравенства
+    @Test
+    void testInvalidTriangleInequality() {
+        try {
+            new Triangle(1.0, 7.0, 5.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // OK
+        }
+
+    }
+
 }

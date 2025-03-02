@@ -10,8 +10,21 @@ public class Triangle {
         this.x = x;
         this.y = y;
         this.z = z;
-    }
 
+        //Проверка на отрицательные стороны
+        if (x <= 0 || y <= 0 || z <= 0) {
+            throw new IllegalArgumentException("Треугольник содержит отрицательные стороны");
+        }
+        //Проверка неравенства треугольника
+        if (!isValidTriangle(x, y, z)) {
+            throw  new IllegalArgumentException("Неравенство треугольника нарушено");
+        }
+
+    }
+    //Метод для проверки неравенства треугольника
+    private boolean isValidTriangle(double a, double b, double c) {
+        return (a + b > c && a + c > b && b + c > a);
+    }
     //Расчет периметра
     public double perimeter() {
         return x + y + z;
