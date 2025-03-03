@@ -1,5 +1,8 @@
 package ru.stqa.geometry.figures;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Triangle {
 
     private final double x;
@@ -47,5 +50,22 @@ public class Triangle {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+        //Создание массивов со сторонами треугольников
+        double[] triangleSides1 = {triangle.x, triangle.y, triangle.z};
+        double[] triangleSides2 = {this.x, this.y, this.z};
+        //Сортировка
+        Arrays.sort(triangleSides1);
+        Arrays.sort(triangleSides2);
+        //Сравнение массивов
+        return Arrays.equals(triangleSides1, triangleSides2);
+    }
 
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

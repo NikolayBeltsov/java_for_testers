@@ -39,4 +39,11 @@ public class TriangleTests {
 
     }
 
+//Тест на проверку равенства треугольников
+    @Test
+    void testEquality() {
+        var t1 = new Triangle(6.0, 7.0, 5.0);
+        var t2 = new Triangle(7.0, 5.0, 6.0);
+        Assertions.assertEquals(t1, t2);
+    }
 }
