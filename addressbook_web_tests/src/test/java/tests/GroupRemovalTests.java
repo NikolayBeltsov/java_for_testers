@@ -7,14 +7,12 @@ public class GroupRemovalTests extends TestBase {
 
     @Test
     public void canRemoveGroup() {
-        //Открываем страницу с группами
-        app.openGroupsPage();
         //Если нет группы, то создается новая
-        if (!app.isGroupPresent()) {
-            app.createGroup(new GroupData("group name", "group header", "group footer"));
+        if (!app.groups().isGroupPresent()) {
+            app.groups().createGroup(new GroupData("group name", "group header", "group footer"));
         }
         //Удаляем группу
-        app.removeGroup();
+        app.groups().removeGroup();
 
     }
 
