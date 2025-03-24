@@ -1,7 +1,6 @@
 package ru.stqa.geometry.figures;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Triangle {
 
