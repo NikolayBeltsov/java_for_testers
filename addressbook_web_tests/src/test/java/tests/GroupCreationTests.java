@@ -41,7 +41,7 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-    
+
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
     public void canNotCreateGroup(GroupData group) {

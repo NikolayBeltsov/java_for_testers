@@ -26,4 +26,13 @@ public class TestBase {
         return result;
     }
 
+    public static String randomPhoneNumber(int n) {
+        var rndNum = new Random();
+        var result = "";
+        var prefix = "8800";
+        for (int i = 0; i < n; i++) {
+            result += rndNum.nextInt(10);
+        }
+        return prefix + result;
+    }
 }
