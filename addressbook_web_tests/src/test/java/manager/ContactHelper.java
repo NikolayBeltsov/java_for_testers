@@ -3,6 +3,9 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
@@ -24,11 +27,12 @@ public class ContactHelper extends HelperBase {
         openCreateContactsPage();
         fillContactForm(contact);
         submitContactCreation();
-        returnToHomePage();
+        homePage();
     }
 
-    public void removeContact() {
-        selectContact();
+    public void removeContact(ContactData contact) {
+        homePage();
+        selectContact(contact);
         removeSelectedContact();
     }
 
@@ -46,9 +50,6 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    private void returnToHomePage() {
-        click(By.linkText("home page"));
-    }
 
     private void homePage() {
         if (!manager.isElementPresent(By.id("MassCB"))) {
@@ -67,12 +68,27 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//*[@value='Delete']"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void selectAllContact() {
         click(By.id("MassCB"));
     }
 
+    public List<ContactData> getList() {
+        var contacts = new ArrayList<ContactData>();
+        var rows = manager.driver.findElements(By.name("entry"));
+        for (var row : rows) {
+            var lastN = row.findElement(By.xpath("./td[2]"));
+            var firstN = row.findElement(By.xpath("./td[3]"));
+            var lastName = lastN.getText();
+            var firstName = firstN.getText();
+            var checkbox = row.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
+
+        }
+        return contacts;
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationsTests extends TestBase {
@@ -16,13 +17,21 @@ public class ContactCreationsTests extends TestBase {
             for (var lastName : List.of("", "last name")) {
                 for (var address : List.of("", "address")) {
                     for (var phone : List.of("", "89990000000")) {
-                        result.add(new ContactData(firstName, lastName, address, phone));
+                        result.add(new ContactData()
+                                .withFirstName(firstName)
+                                .withLastName(lastName)
+                                .withAddress(address)
+                                .withPhone(phone));
                     }
                 }
             }
         }
         for (int i = 0; i < 5; i++) {
-            result.add(new ContactData(randomString(i * 5), randomString(i * 5), randomString(i * 5), randomPhoneNumber(7) ));
+            result.add(new ContactData()
+                    .withFirstName(randomString(i * 5))
+                    .withLastName(randomString(i * 5))
+                    .withAddress(randomString(i * 5))
+                    .withPhone(randomPhoneNumber(7)));
         }
         return result;
     }
@@ -30,10 +39,19 @@ public class ContactCreationsTests extends TestBase {
     @ParameterizedTest
     @MethodSource("contactProvider")
     public void canCreateMultipleContact(ContactData contact) {
-        int contactCount = app.contacts().getCount();
+        var oldContacts = app.contacts().getList();
         app.contacts().createContact(contact);
-        int newContactCount = app.contacts().getCount();
-        Assertions.assertEquals(contactCount + 1, newContactCount);
+        var newContact = app.contacts().getList();
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newContact.sort(compareById);
+
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withAddress("").withPhone(""));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContact, expectedList);
+
     }
 
 }
