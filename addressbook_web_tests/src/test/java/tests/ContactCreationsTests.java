@@ -1,7 +1,9 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -28,10 +30,11 @@ public class ContactCreationsTests extends TestBase {
         }
         for (int i = 0; i < 5; i++) {
             result.add(new ContactData()
-                    .withFirstName(randomString(i * 5))
-                    .withLastName(randomString(i * 5))
-                    .withAddress(randomString(i * 5))
-                    .withPhone(randomPhoneNumber(7)));
+                    .withFirstName(CommonFunctions.randomString(i * 5))
+                    .withLastName(CommonFunctions.randomString(i * 5))
+                    .withAddress(CommonFunctions.randomString(i * 5))
+                    .withPhone(CommonFunctions.randomPhoneNumber(7))
+                    .withPhoto("src/test/resources/images/avatar.png"));
         }
         return result;
     }
@@ -48,10 +51,21 @@ public class ContactCreationsTests extends TestBase {
         newContact.sort(compareById);
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withAddress("").withPhone(""));
+        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withAddress("").withPhone("").withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContact, expectedList);
 
+    }
+
+    @Test
+    void canCreateContact() {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(5))
+                .withLastName(CommonFunctions.randomString(5))
+                .withAddress(CommonFunctions.randomString(5))
+                .withPhone(CommonFunctions.randomPhoneNumber(7))
+                .withPhoto(CommonFunctions.randomFile("src/test/resources/images"));
+        app.contacts().createContact(contact);
     }
 
 }
