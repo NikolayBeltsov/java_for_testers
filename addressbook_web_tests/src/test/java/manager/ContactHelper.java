@@ -41,6 +41,15 @@ public class ContactHelper extends HelperBase {
         removeSelectedContact();
     }
 
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        homePage();
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        SubmitContactModification();
+        homePage();
+    }
+
+
     public int getCount() {
         homePage();
         return manager.driver.findElements(By.name("selected[]")).size();
@@ -74,6 +83,15 @@ public class ContactHelper extends HelperBase {
 
     private void selectAllContact() {
         click(By.id("MassCB"));
+    }
+
+    private void initContactModification(ContactData contact) {
+        click(By.xpath(String.format("//input[@value='%s']/ancestor::tr//img[@title='Edit']", contact.id())));
+
+    }
+
+    private void SubmitContactModification() {
+        click(By.name("update"));
     }
 
     public List<ContactData> getList() {
