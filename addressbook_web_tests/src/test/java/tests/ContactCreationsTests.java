@@ -1,5 +1,7 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
@@ -7,35 +9,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationsTests extends TestBase {
 
-    public static List<ContactData> contactProvider() {
+    public static List<ContactData> contactProvider() throws IOException {
         var result = new ArrayList<ContactData>();
-        for (var firstName : List.of("", "first name")) {
-            for (var lastName : List.of("", "last name")) {
-                for (var address : List.of("", "address")) {
-                    for (var phone : List.of("", "89990000000")) {
-                        result.add(new ContactData()
-                                .withFirstName(firstName)
-                                .withLastName(lastName)
-                                .withAddress(address)
-                                .withPhone(phone));
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < 5; i++) {
-            result.add(new ContactData()
-                    .withFirstName(CommonFunctions.randomString(i * 5))
-                    .withLastName(CommonFunctions.randomString(i * 5))
-                    .withAddress(CommonFunctions.randomString(i * 5))
-                    .withPhone(CommonFunctions.randomPhoneNumber(7))
-                    .withPhoto("src/test/resources/images/avatar.png"));
-        }
+        var json = Files.readString(Paths.get("contacts.json"));
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {
+        });
+        result.addAll(value);
         return result;
     }
 

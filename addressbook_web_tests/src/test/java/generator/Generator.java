@@ -17,33 +17,33 @@ import java.util.ArrayList;
 
 public class Generator {
 
-    @Parameter(names={"--type", "-t"})
+    @Parameter(names = {"--type", "-t"})
     String type;
 
-    @Parameter(names={"--output", "-o"})
+    @Parameter(names = {"--output", "-o"})
     String output;
 
-    @Parameter(names={"--format", "-f"})
+    @Parameter(names = {"--format", "-f"})
     String format;
 
-    @Parameter(names={"--count", "-n"})
+    @Parameter(names = {"--count", "-n"})
     int count;
 
     public static void main(String[] args) throws IOException {
-      var generator = new Generator();
+        var generator = new Generator();
         JCommander.newBuilder()
                 .addObject(generator)
                 .build()
                 .parse(args);
-      generator.run();
+        generator.run();
     }
 
     private void run() throws IOException {
-        var data = genegate();
+        var data = generate();
         save(data);
     }
 
-    private Object genegate() {
+    private Object generate() {
         if ("groups".equals(type)) {
             return generateGroups();
         } else if ("contacts".equals(type)) {
@@ -68,9 +68,9 @@ public class Generator {
         var result = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             result.add(new ContactData()
-                    .withFirstName(CommonFunctions.randomString(i * 5))
-                    .withLastName(CommonFunctions.randomString(i * 5))
-                    .withAddress(CommonFunctions.randomString(i * 5))
+                    .withFirstName(CommonFunctions.randomString(i * 3))
+                    .withLastName(CommonFunctions.randomString(i * 3))
+                    .withAddress(CommonFunctions.randomString(i * 3))
                     .withPhone(CommonFunctions.randomPhoneNumber(7))
                     .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
         }
@@ -86,13 +86,13 @@ public class Generator {
             try (var writer = new FileWriter(output)) {
                 writer.write(json);
             }
-        } if ("yaml".equals(format)) {
+        } else if ("yaml".equals(format)) {
             var mapper = new YAMLMapper();
             mapper.writeValue(new File(output), data);
-        } if ("xml".equals(format)) {
+        } else if ("xml".equals(format)) {
             var mapper = new XmlMapper();
             mapper.writeValue(new File(output), data);
-        } else  {
+        } else {
             throw new IllegalArgumentException("Неизвестный формат данных" + format);
         }
     }

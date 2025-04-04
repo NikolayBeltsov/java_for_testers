@@ -1,0 +1,22 @@
+[ {
+  "id" : "",
+  "firstName" : "",
+  "lastName" : "",
+  "address" : "",
+  "phone" : "88004794537",
+  "photo" : "src\\test\\resources\\images\\rage.png"
+}, {
+  "id" : "",
+  "firstName" : "vyg",
+  "lastName" : "anh",
+  "address" : "hxr",
+  "phone" : "88005845589",
+  "photo" : "src\\test\\resources\\images\\rage.png"
+}, {
+  "id" : "",
+  "firstName" : "cpyjkh",
+  "lastName" : "dnposv",
+  "address" : "kvwewt",
+  "phone" : "88007808486",
+  "photo" : "src\\test\\resources\\images\\avatar.png"
+} ]
