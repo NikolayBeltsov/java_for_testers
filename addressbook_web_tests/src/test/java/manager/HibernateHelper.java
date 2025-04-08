@@ -28,6 +28,7 @@ public class HibernateHelper extends HelperBase {
                 .buildSessionFactory();
     }
 
+
     static List<GroupData> convertList(List<GroupRecord> records) {
         List<GroupData> result = new ArrayList<>();
         for (var record : records) {
@@ -68,6 +69,18 @@ public class HibernateHelper extends HelperBase {
             session.getTransaction().begin();
             session.persist(convert(groupData));
             session.getTransaction().commit();
+        });
+    }
+
+    public List<ContactData> getContactList() {
+        return convertContactList(sessionFactory.fromSession(session -> {
+            return session.createQuery("from ContactRecord", ContactRecord.class).list();
+        }));
+    }
+
+    public long getContactCount() {
+        return sessionFactory.fromSession(session -> {
+            return session.createQuery("select count (*) from ContactRecord", Long.class).getSingleResult();
         });
     }
 

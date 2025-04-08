@@ -32,16 +32,16 @@ public class ContactCreationsTests extends TestBase {
     @ParameterizedTest
     @MethodSource("contactProvider")
     public void canCreateMultipleContact(ContactData contact) {
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         app.contacts().createContact(contact);
-        var newContact = app.contacts().getList();
+        var newContact = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContact.sort(compareById);
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withAddress("").withPhone("").withPhoto(""));
+        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContact, expectedList);
 
