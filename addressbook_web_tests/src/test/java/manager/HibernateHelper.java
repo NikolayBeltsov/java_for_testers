@@ -9,7 +9,6 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class HibernateHelper extends HelperBase {
         });
     }
 
-    static  List<ContactData> convertContactList(List<ContactRecord> records) {
+    static List<ContactData> convertContactList(List<ContactRecord> records) {
         List<ContactData> result = new ArrayList<>();
         for (var record : records) {
             result.add(convert(record));
@@ -113,4 +112,6 @@ public class HibernateHelper extends HelperBase {
             return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
         });
     }
+
+
 }
