@@ -97,6 +97,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contact.lastName());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
+        type(By.name("email"), contact.email());
+        type(By.name("email3"), contact.email3());
         if (contact.photo() != null && !contact.photo().isEmpty()) {
             attach(By.name("photo"), contact.photo());
         }
@@ -156,6 +158,28 @@ public class ContactHelper extends HelperBase {
             var id = row.findElement(By.tagName("input")).getAttribute("id");
             var phones = row.findElements(By.tagName("td")).get(5).getText();
             result.put(id, phones);
+        }
+        return result;
+    }
+
+    public Map<String, String> getEmails() {
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var emails = row.findElements(By.tagName("td")).get(4).getText();
+            result.put(id, emails);
+        }
+        return result;
+    }
+
+    public Map<String, String> getAddresses() {
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var addresses = row.findElements(By.tagName("td")).get(3).getText();
+            result.put(id, addresses);
         }
         return result;
     }

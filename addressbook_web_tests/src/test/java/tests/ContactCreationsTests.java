@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 public class ContactCreationsTests extends TestBase {
 
@@ -35,9 +35,15 @@ public class ContactCreationsTests extends TestBase {
         var oldContacts = app.hbm().getContactList();
         app.contacts().createContact(contact);
         var newContact = app.hbm().getContactList();
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newContact.sort(compareById);
+
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withPhoto(""));
-        Assertions.assertEquals(Set.copyOf(newContact), Set.copyOf(expectedList));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContact, expectedList);
 
     }
 
