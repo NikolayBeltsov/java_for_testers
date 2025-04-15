@@ -27,7 +27,7 @@ public class ContactRecord {
     public ContactRecord() {
     }
 
-    public ContactRecord(int id, String firstname, String lastname, String address, String mobile) {
+    public ContactRecord(int id, String firstname, String lastname, String address, String home, String work, String mobile, String phone2) {
 
         this.id = id;
         this.firstname = firstname;

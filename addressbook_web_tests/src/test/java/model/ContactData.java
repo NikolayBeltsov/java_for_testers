@@ -1,7 +1,13 @@
 package model;
 
-public record ContactData(String id, String firstName, String lastName, String address, String home, String work,
-                          String mobile, String phone2,
+public record ContactData(String id,
+                          String firstName,
+                          String lastName,
+                          String address,
+                          String home,
+                          String work,
+                          String mobile,
+                          String phone2,
                           String photo
 ) {
 
