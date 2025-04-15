@@ -15,7 +15,7 @@ public class ContactRemovalTests extends TestBase {
     public void canRemoveContact() {
         //Если нет контакта, то создаем новый
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new ContactData("", "first name", "last name", "address", "89055553322", ""));
+            app.contacts().createContact(new ContactData("", "first name", "last name", "address", "", "", "89055553322", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
@@ -40,7 +40,7 @@ public class ContactRemovalTests extends TestBase {
                     .withFirstName(CommonFunctions.randomString(5))
                     .withLastName(CommonFunctions.randomString(5))
                     .withAddress(CommonFunctions.randomString(5))
-                    .withPhone(CommonFunctions.randomPhoneNumber(7));
+                    .withMobilePhone(CommonFunctions.randomPhoneNumber(7));
             app.contacts().createContactInGroup(contact, group);
         }
 
@@ -56,7 +56,7 @@ public class ContactRemovalTests extends TestBase {
     public void canRemoveAllContact() {
         //Если нет контакта, то создаем новый
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new ContactData("", "Vasya", "Pupkin", "Pushkina street", "89055553322", ""));
+            app.contacts().createContact(new ContactData("", "Vasya", "Pupkin", "Pushkina street", "", "", "89055553322", "", ""));
         }
         //Удаляем контакт
         app.contacts().removeAllContact();

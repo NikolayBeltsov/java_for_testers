@@ -9,7 +9,6 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,7 +88,10 @@ public class HibernateHelper extends HelperBase {
                 .withFirstName(record.firstname)
                 .withLastName(record.lastname)
                 .withAddress(record.address)
-                .withPhone(record.mobile);
+                .withHomePhone(record.home)
+                .withWorkPhone(record.work)
+                .withMobilePhone(record.mobile)
+                .withPhone2(record.phone2);
     }
 
     private static ContactRecord convert(ContactData data) {
@@ -97,7 +99,7 @@ public class HibernateHelper extends HelperBase {
         if ("".equals(id)) {
             id = "0";
         }
-        return new ContactRecord(Integer.parseInt(id), data.firstName(), data.lastName(), data.address(), data.phone());
+        return new ContactRecord(Integer.parseInt(id), data.firstName(), data.lastName(), data.address(), data.mobile());
     }
 
     public List<ContactData> getContactsInGroup(GroupData group) {

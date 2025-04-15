@@ -47,7 +47,7 @@ public class ContactCreationsTests extends TestBase {
                 .withFirstName(CommonFunctions.randomString(5))
                 .withLastName(CommonFunctions.randomString(5))
                 .withAddress(CommonFunctions.randomString(5))
-                .withPhone(CommonFunctions.randomPhoneNumber(7))
+                .withMobilePhone(CommonFunctions.randomPhoneNumber(7))
                 .withPhoto(CommonFunctions.randomFile("src/test/resources/images"));
         app.contacts().createContact(contact);
     }
@@ -58,7 +58,7 @@ public class ContactCreationsTests extends TestBase {
                 .withFirstName(CommonFunctions.randomString(5))
                 .withLastName(CommonFunctions.randomString(5))
                 .withAddress(CommonFunctions.randomString(5))
-                .withPhone(CommonFunctions.randomPhoneNumber(7));
+                .withMobilePhone(CommonFunctions.randomPhoneNumber(7));
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }

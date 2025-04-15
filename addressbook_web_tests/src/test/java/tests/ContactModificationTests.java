@@ -18,7 +18,7 @@ public class ContactModificationTests extends TestBase {
 
         //Если нет контакта, то создаем новый
         if (app.contacts().getCount() == 0) {
-            app.contacts().createContact(new ContactData("", "first name", "last name", "address", "89055553322",""));
+            app.contacts().createContact(new ContactData("", "first name", "last name", "address", "", "", "89055553322", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase {
                 .withFirstName(CommonFunctions.randomString(5))
                 .withLastName(CommonFunctions.randomString(5))
                 .withAddress(CommonFunctions.randomString(5))
-                .withPhone(CommonFunctions.randomPhoneNumber(7));
+                .withMobilePhone(CommonFunctions.randomPhoneNumber(7));
         app.contacts().modifyContact(oldContacts.get(index), testData);
         var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);

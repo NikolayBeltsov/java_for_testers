@@ -93,7 +93,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"), contact.firstName());
         type(By.name("lastname"), contact.lastName());
         type(By.name("address"), contact.address());
-        type(By.name("mobile"), contact.phone());
+        type(By.name("mobile"), contact.mobile());
         if (contact.photo() != null && !contact.photo().isEmpty()) {
             attach(By.name("photo"), contact.photo());
         }
@@ -139,5 +139,10 @@ public class ContactHelper extends HelperBase {
 
         }
         return contacts;
+    }
+
+    public String getPhones(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
     }
 }
