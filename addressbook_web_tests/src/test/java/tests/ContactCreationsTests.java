@@ -90,11 +90,6 @@ public class ContactCreationsTests extends TestBase {
                     .withHeader(CommonFunctions.randomString(5)));
         }
 
-        var groups = app.hbm().getGroupList();
-        var rnd = new Random();
-        var groupIndex = rnd.nextInt(groups.size());
-        var group = app.hbm().getGroupList().get(groupIndex);
-
         if (app.hbm().getContactCount() == 0) {
             app.contacts().createContact(new ContactData()
                     .withFirstName(CommonFunctions.randomString(5))
@@ -102,15 +97,50 @@ public class ContactCreationsTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(5))
                     .withMobilePhone(CommonFunctions.randomPhoneNumber(7)));
         }
+
+        var groups = app.hbm().getGroupList();
         var contacts = app.hbm().getContactList();
-        var contactIndex = rnd.nextInt(contacts.size());
 
-        var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contacts().addContactToGroup(contacts.get(contactIndex), group);
-        var newRelated = app.hbm().getContactsInGroup(group);
+        ContactData contactToAdd = null;
+        GroupData groupToAdd = null;
+
+        for (ContactData contact : contacts) {
+            for (GroupData group : groups) {
+                List<ContactData> contactsInGroup = app.hbm().getContactsInGroup(group);
+                boolean contactInGroup = false;
+                for (ContactData contactInCurrentGroup : contactsInGroup) {
+                    if (contactInCurrentGroup.id().equals(contact.id())) {
+                        contactInGroup = true;
+                        break;
+                    }
+                }
+                if (!contactInGroup) {
+                    contactToAdd = contact;
+                    groupToAdd = group;
+                    break;
+                }
+            }
+            if (contactToAdd != null) {
+                break;
+            }
+        }
+        
+        if (contactToAdd == null) {
+            app.contacts().createContact(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(5))
+                    .withLastName(CommonFunctions.randomString(5))
+                    .withAddress(CommonFunctions.randomString(5))
+                    .withMobilePhone(CommonFunctions.randomPhoneNumber(7)));
+
+            contacts = app.hbm().getContactList();
+            contactToAdd = contacts.get(contacts.size() - 1);
+            groupToAdd = groups.get(0);
+        }
+
+        var oldRelated = app.hbm().getContactsInGroup(groupToAdd);
+        app.contacts().addContactToGroup(contactToAdd, groupToAdd);
+        var newRelated = app.hbm().getContactsInGroup(groupToAdd);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
-
-
     }
 
 }
