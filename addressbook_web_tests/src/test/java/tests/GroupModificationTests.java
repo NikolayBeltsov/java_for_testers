@@ -13,7 +13,6 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     void canModifyGroup() {
-        //Если нет группы, то создается новая
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }

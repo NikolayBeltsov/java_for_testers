@@ -1,5 +1,6 @@
 package manager;
 
+import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
@@ -199,4 +200,25 @@ public class ContactHelper extends HelperBase {
         }
         return result;
     }
+
+    public void createContactIfNotExist() {
+        if (manager.hbm().getContactCount() == 0) {
+            createContact(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(5))
+                    .withLastName(CommonFunctions.randomString(5))
+                    .withAddress(CommonFunctions.randomString(5))
+                    .withMobilePhone(CommonFunctions.randomPhoneNumber(7)));
+        }
+    }
+
+    public ContactData createRandomContact() {
+        ContactData contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(5))
+                .withLastName(CommonFunctions.randomString(5))
+                .withMobilePhone(CommonFunctions.randomPhoneNumber(7));
+        createContact(contact);
+        return contact;
+    }
+
+
 }

@@ -9,6 +9,8 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
@@ -117,11 +119,22 @@ public class HibernateHelper extends HelperBase {
                 data.address2());
     }
 
+
+    public Optional<Map.Entry<ContactData, GroupData>> findContactNotInAnyGroup() {
+        for (ContactData contact : getContactList()) {
+            for (GroupData group : getGroupList()) {
+                if (!getContactsInGroup(group).contains(contact)) {
+                    return Optional.of(Map.entry(contact, group));
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     public List<ContactData> getContactsInGroup(GroupData group) {
         return sessionFactory.fromSession(session -> {
             return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
         });
     }
-
 
 }

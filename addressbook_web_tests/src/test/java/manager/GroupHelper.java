@@ -1,5 +1,6 @@
 package manager;
 
+import common.CommonFunctions;
 import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -107,4 +108,14 @@ public class GroupHelper extends HelperBase {
                 })
                 .collect(Collectors.toList());
     }
+
+    public void createGroupIfNotExist() {
+        if (manager.hbm().getGroupCount() == 0) {
+            createGroup(new GroupData()
+                    .withName(CommonFunctions.randomString(5))
+                    .withFooter(CommonFunctions.randomString(5))
+                    .withHeader(CommonFunctions.randomString(5)));
+        }
+    }
+
 }
