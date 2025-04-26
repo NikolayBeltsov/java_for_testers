@@ -4,6 +4,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.net.CookieManager;
+import java.net.Socket;
 
 public class HttpSessionHelper extends HelperBase{
 

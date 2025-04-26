@@ -23,6 +23,8 @@ public class ApplicationManager {
 
     private MailHelper mailHelper;
 
+    private RegHelper regHelper;
+
     public void init(String browser, Properties properties) {
         this.string = browser;
         this.properties = properties;
@@ -69,6 +71,13 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public RegHelper reg() {
+        if (regHelper == null) {
+            regHelper = new RegHelper(this);
+        }
+        return regHelper;
     }
 
     public String property(String name) {

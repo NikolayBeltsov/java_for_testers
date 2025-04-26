@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class MailHelper extends HelperBase {
 
@@ -82,6 +83,17 @@ public class MailHelper extends HelperBase {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public String extractUrl(String username) {
+        var messages = manager.mail().receive(username + "@localhost", "password", Duration.ofSeconds(60));
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return text.substring(matcher.start(), matcher.end());
+        }
+        throw new RuntimeException("Url not found");
     }
 
 }
