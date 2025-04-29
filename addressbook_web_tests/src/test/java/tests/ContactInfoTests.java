@@ -1,7 +1,9 @@
 package tests;
 
+import io.qameta.allure.Epic;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
@@ -10,6 +12,8 @@ import java.util.stream.Stream;
 public class ContactInfoTests extends TestBase {
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Проверка телефонных номеров контакта")
     void testPhones() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(
@@ -39,6 +43,8 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Проверка адресов контакта")
     void testAddress() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(
@@ -69,6 +75,8 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Проверка корректности email-адресов контакта")
     void testEmail() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(

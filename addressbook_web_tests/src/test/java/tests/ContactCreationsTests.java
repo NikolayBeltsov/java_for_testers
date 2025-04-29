@@ -3,9 +3,11 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
+import io.qameta.allure.Epic;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -29,6 +31,8 @@ public class ContactCreationsTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("contactProvider")
+    @Epic("Проверка контактов")
+    @DisplayName("Массовое создание контактов из JSON-файла")
     public void canCreateMultipleContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
         app.contacts().createContact(contact);
@@ -46,6 +50,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Создание контакта со случайными данными")
     void canCreateContact() {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(5))
@@ -57,6 +63,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Создание контакта в группе")
     void canCreateContactInGroup() {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(5))
@@ -75,6 +83,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Добавление контакта в группу")
     void canAddContactToGroup() {
         app.groups().createGroupIfNotExist();
         app.contacts().createContactIfNotExist();

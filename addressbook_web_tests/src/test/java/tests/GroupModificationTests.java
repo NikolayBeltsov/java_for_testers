@@ -1,8 +1,10 @@
 package tests;
 
 import common.CommonFunctions;
+import io.qameta.allure.Epic;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.Set;
 public class GroupModificationTests extends TestBase {
 
     @Test
+    @Epic("Проверка групп")
+    @DisplayName("Редактирование группы")
     void canModifyGroup() {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));

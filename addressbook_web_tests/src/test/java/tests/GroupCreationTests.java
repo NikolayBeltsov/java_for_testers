@@ -3,8 +3,10 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
+import io.qameta.allure.Epic;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GroupCreationTests extends TestBase {
@@ -40,6 +41,8 @@ public class GroupCreationTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("randomGroups")
+    @Epic("Проверка групп")
+    @DisplayName("Массовое создание групп из JSON-файла")
     public void canCreateGroup(GroupData group) {
         var oldGroups = app.jdbc().getGroupList();
         app.groups().createGroup(group);
@@ -61,6 +64,8 @@ public class GroupCreationTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
+    @Epic("Проверка групп")
+    @DisplayName("Попытка создания группы с невалидными данными")
     public void canNotCreateGroup(GroupData group) {
         var oldGroups = app.groups().getList();
         app.groups().createGroup(group);

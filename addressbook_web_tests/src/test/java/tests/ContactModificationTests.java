@@ -1,8 +1,10 @@
 package tests;
 
 import common.CommonFunctions;
+import io.qameta.allure.Epic;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class ContactModificationTests extends TestBase {
 
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Изменение контакта")
     void canModifyContact() {
-
-        //Если нет контакта, то создаем новый
         app.contacts().createContactIfNotExist();
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();

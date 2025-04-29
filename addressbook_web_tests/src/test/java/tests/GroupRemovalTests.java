@@ -1,8 +1,10 @@
 package tests;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.Random;
 public class GroupRemovalTests extends TestBase {
 
     @Test
+    @Epic("Проверка групп")
+    @DisplayName("Удаление случайной группы")
     public void canRemoveGroup() {
         Allure.step("Checking precondition", step -> {
             app.groups().createGroupIfNotExist();
@@ -25,12 +29,13 @@ public class GroupRemovalTests extends TestBase {
         Allure.step("Validating results", step -> {
             Assertions.assertEquals(newGroups, expectedList);
         });
+
     }
 
     @Test
-
+    @Epic("Проверка групп")
+    @DisplayName("Удаление всех групп")
     void canRemoveAllGroupsAtOnce() {
-        //Если нет группы, то создается новая
         app.groups().createGroupIfNotExist();
         app.groups().removeAllGroups();
         Assertions.assertEquals(0, app.hbm().getGroupCount());

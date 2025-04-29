@@ -1,9 +1,11 @@
 package tests;
 
 import common.CommonFunctions;
+import io.qameta.allure.Epic;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,12 +14,13 @@ import java.util.Random;
 public class ContactRemovalTests extends TestBase {
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Удаление случайного контакта")
     public void canRemoveContact() {
         app.contacts().createContactIfNotExist();
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
-        //Удаляем контакт
         app.contacts().removeContact(oldContacts.get(index));
         var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
@@ -27,6 +30,8 @@ public class ContactRemovalTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Удаление контакта из группы")
     void canRemoveContactFromGroup() {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
@@ -50,6 +55,8 @@ public class ContactRemovalTests extends TestBase {
     }
 
     @Test
+    @Epic("Проверка контактов")
+    @DisplayName("Удаление всех контактов")
     public void canRemoveAllContact() {
         //Если нет контакта, то создаем новый
         app.contacts().createContactIfNotExist();
