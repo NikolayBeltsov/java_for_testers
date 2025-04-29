@@ -29,7 +29,7 @@ public class GroupRemovalTests extends TestBase {
         Allure.step("Validating results", step -> {
             Assertions.assertEquals(newGroups, expectedList);
         });
-
+        
     }
 
     @Test
