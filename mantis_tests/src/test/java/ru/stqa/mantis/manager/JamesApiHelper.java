@@ -13,7 +13,7 @@ public class JamesApiHelper extends HelperBase {
     OkHttpClient client;
 
     public JamesApiHelper(ApplicationManager manager) {
-       super(manager);
+        super(manager);
         client = new OkHttpClient.Builder().cookieJar(new JavaNetCookieJar(new CookieManager())).build();
     }
 
@@ -23,6 +23,22 @@ public class JamesApiHelper extends HelperBase {
         Request request = new Request.Builder()
                 .url(String.format("%s/users/%s", manager.property("james.apiBaseUrl"), email))
                 .put(body)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new RuntimeException("Unexpected code" + response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void startRegister(String username, String email, String password) {
+        RequestBody body = RequestBody.create(
+                String.format("{\"username\":\"%s\", \"email\":\"%s\", \"password\":\"%s\"}", username, email, password), JSON);
+
+        Request request = new Request.Builder()
+                .url(String.format("%s/api/rest/users", manager.property("web.baseUrl")))
+                .post(body)
+                .header("Authorization", manager.property("apiKey"))
                 .build();
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new RuntimeException("Unexpected code" + response);
