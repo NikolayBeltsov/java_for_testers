@@ -31,8 +31,8 @@ public class ContactCreationsTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("contactProvider")
-    @Epic("Проверка контактов")
-    @DisplayName("Массовое создание контактов из JSON-файла")
+    @Epic("Contact Management")
+    @DisplayName("Create contacts from JSON data")
     public void canCreateMultipleContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
         app.contacts().createContact(contact);
@@ -50,8 +50,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Создание контакта со случайными данными")
+    @Epic("Contact Management")
+    @DisplayName("Create contact with random data")
     void canCreateContact() {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(5))
@@ -63,8 +63,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Создание контакта в группе")
+    @Epic("Contact Management")
+    @DisplayName("Create contact within group")
     void canCreateContactInGroup() {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(5))
@@ -83,8 +83,8 @@ public class ContactCreationsTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Добавление контакта в группу")
+    @Epic("Contact Management")
+    @DisplayName("Add contact to group")
     void canAddContactToGroup() {
         app.groups().createGroupIfNotExist();
         app.contacts().createContactIfNotExist();

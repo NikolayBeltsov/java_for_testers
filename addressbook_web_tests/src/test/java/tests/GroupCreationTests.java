@@ -41,8 +41,8 @@ public class GroupCreationTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("randomGroups")
-    @Epic("Проверка групп")
-    @DisplayName("Массовое создание групп из JSON-файла")
+    @Epic("Group Management")
+    @DisplayName("Create groups from JSON data")
     public void canCreateGroup(GroupData group) {
         var oldGroups = app.jdbc().getGroupList();
         app.groups().createGroup(group);
@@ -64,8 +64,8 @@ public class GroupCreationTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
-    @Epic("Проверка групп")
-    @DisplayName("Попытка создания группы с невалидными данными")
+    @Epic("Group Management")
+    @DisplayName("Attempt to create group with invalid data")
     public void canNotCreateGroup(GroupData group) {
         var oldGroups = app.groups().getList();
         app.groups().createGroup(group);

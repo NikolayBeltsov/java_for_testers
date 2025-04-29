@@ -14,8 +14,8 @@ import java.util.Random;
 public class ContactRemovalTests extends TestBase {
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Удаление случайного контакта")
+    @Epic("Contact Management")
+    @DisplayName("Remove random contact")
     public void canRemoveContact() {
         app.contacts().createContactIfNotExist();
         var oldContacts = app.hbm().getContactList();
@@ -30,8 +30,8 @@ public class ContactRemovalTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Удаление контакта из группы")
+    @Epic("Contact Management")
+    @DisplayName("Remove contact from group")
     void canRemoveContactFromGroup() {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
@@ -55,8 +55,8 @@ public class ContactRemovalTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Удаление всех контактов")
+    @Epic("Contact Management")
+    @DisplayName("Remove all contact")
     public void canRemoveAllContact() {
         //Если нет контакта, то создаем новый
         app.contacts().createContactIfNotExist();

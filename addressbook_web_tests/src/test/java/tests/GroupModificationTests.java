@@ -14,8 +14,8 @@ import java.util.Set;
 public class GroupModificationTests extends TestBase {
 
     @Test
-    @Epic("Проверка групп")
-    @DisplayName("Редактирование группы")
+    @Epic("Group Management")
+    @DisplayName("Group Modification")
     void canModifyGroup() {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));

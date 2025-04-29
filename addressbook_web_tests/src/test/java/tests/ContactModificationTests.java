@@ -16,8 +16,8 @@ public class ContactModificationTests extends TestBase {
 
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Изменение контакта")
+    @Epic("Contact Management")
+    @DisplayName("Modify contact")
     void canModifyContact() {
         app.contacts().createContactIfNotExist();
         var oldContacts = app.hbm().getContactList();

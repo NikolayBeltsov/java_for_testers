@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 public class ContactInfoTests extends TestBase {
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Проверка телефонных номеров контакта")
+    @Epic("Contact Management")
+    @DisplayName("Validates phones")
     void testPhones() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(
@@ -43,8 +43,8 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Проверка адресов контакта")
+    @Epic("Contact Management")
+    @DisplayName("Validates addresses")
     void testAddress() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(
@@ -75,8 +75,8 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка контактов")
-    @DisplayName("Проверка корректности email-адресов контакта")
+    @Epic("Contact Management")
+    @DisplayName("Validates email addresses")
     void testEmail() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData(

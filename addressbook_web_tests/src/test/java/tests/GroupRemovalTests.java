@@ -13,8 +13,8 @@ import java.util.Random;
 public class GroupRemovalTests extends TestBase {
 
     @Test
-    @Epic("Проверка групп")
-    @DisplayName("Удаление случайной группы")
+    @Epic("Group Management")
+    @DisplayName("Remove random group")
     public void canRemoveGroup() {
         Allure.step("Checking precondition", step -> {
             app.groups().createGroupIfNotExist();
@@ -33,8 +33,8 @@ public class GroupRemovalTests extends TestBase {
     }
 
     @Test
-    @Epic("Проверка групп")
-    @DisplayName("Удаление всех групп")
+    @Epic("Group Management")
+    @DisplayName("Remove all groups")
     void canRemoveAllGroupsAtOnce() {
         app.groups().createGroupIfNotExist();
         app.groups().removeAllGroups();
